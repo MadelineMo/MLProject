@@ -63,18 +63,22 @@ def initalize():
     df = df.replace('DODEA', 51)
     df = df.replace('NATIONAL', 52)
 
-    # remove rows with empty test score data???
-
     # fill all empty boxes with 0
+            # !!! what should we do about missing scores data? (y collums)
+            # remove rows with empty test score data???
     df = df.fillna(0)
     df = df.astype(int)
     data = df.to_numpy()
-    # sort data X and y - not sure what is y in this data set
-    #y = data[:, 0]
-    #y = np.where(y == 0, -1, 1)
-    #X = data[:, 1:9]
+
+    # sort data X and y, y = scores average
+    y_4_Math = data[:, 20]
+    y_8_Math = data[:, 21]
+    y_4_Reading = data[:, 22]
+    y_8_Reading = data[:, 23]
+    X = data[:, 0:19]
+
     # Standardize X
     sc = StandardScaler()
     sc.fit(X)
     X_train_std = sc.transform(X)
-    return(X_train_std, y)
+    return(X_train_std, y_4_Math, y_8_Math, y_4_Reading, y_8_Reading)
