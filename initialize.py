@@ -92,6 +92,62 @@ def initalize():
     df = df.fillna(0)
     df = df.astype(float)
     data = df.to_numpy()
+    
+    
+    
+    
+    #Isabel's edit (dealing with NA Values - if we don't want to fill them al with 0 or NA) - please edit! I'm sure there is a better way to go about this :)
+    
+    #Before runnig comment out line 92!!
+    
+    #View the column names
+    print(df.columns.values)
+
+    #Finding different data types
+    df.info()
+
+    #look at null values
+    df.isnull().sum() 
+
+    #percent of null missing 
+    percent_missing = df.isnull().sum() * 100 / len(df)
+    missing_value_df = pd.DataFrame({'column_name': df.columns,
+                                     'percent_missing': percent_missing})
+    print(missing_value_df)
+    
+    #Filling averages for missing some missing variables 
+    df["MinTemp"] = df["MinTemp"].fillna(df['MinTemp'].mean())
+    df["MaxTemp"] = df["MaxTemp"].fillna(df['MaxTemp'].mean())    
+    df["Rainfall"] = df["Rainfall"].fillna(df['Rainfall'].mean())
+    df["Humidity9am"] = df["Humidity9am"].fillna(df['Humidity9am'].mean())
+    df["Humidity3pm"] = df["Humidity3pm"].fillna(df['Humidity3pm'].mean())
+    df["Pressure9am"] = df["Pressure9am"].fillna(df['Pressure9am'].mean())
+    df["Pressure3pm"] = df["Pressure3pm"].fillna(df['Pressure3pm'].mean())
+    df["Temp9am"] = df["Temp9am"].fillna(df['Temp9am'].mean())
+    df["Temp3pm"] = df["Temp3pm"].fillna(df['Temp3pm'].mean())
+    df["WindGustSpeed"] = df["WindGustSpeed"].fillna(df['WindGustSpeed'].mean())
+    df["WindSpeed9am"] = df["WindSpeed9am"].fillna(df['WindSpeed9am'].mean())
+    df["WindSpeed3pm"] = df["WindSpeed3pm"].fillna(df['WindSpeed3pm'].mean())
+    df["Sunshine"] = df["Sunshine"].fillna(df['Sunshine'].mean())
+    df["Evaporation"] = df["Evaporation"].fillna(df['Evaporation'].mean())
+    df["Cloud3pm"] = df["Cloud3pm"].fillna(df['Cloud3pm'].mean())
+    df["Cloud9am"] = df["Cloud9am"].fillna(df['Cloud9am'].mean())
+    
+    #Filling the missing values for continuous variables with mode
+    df['RainToday']=df['RainToday'].fillna(df['RainToday'].mode()[0])
+    df['RainTomorrow']=df['RainTomorrow'].fillna(df['RainTomorrow'].mode()[0])
+    df['WindDir9am'] = df['WindDir9am'].fillna(df['WindDir9am'].mode()[0])
+    df['WindGustDir'] = df['WindGustDir'].fillna(df['WindGustDir'].mode()[0])
+    df['WindDir3pm'] = df['WindDir3pm'].fillna(df['WindDir3pm'].mode()[0])
+    
+    
+    #Making sure there are no null values left in the end
+    print(df.isnull().sum() )
+    
+    #Notes:
+        #Should we drop variables with little correlation to RainTomorrow?
+        #Should we drop variables with a large % of missing data?
+        #For variables with a small % of missing data, should we fill with NA/0 or their average?
 
     # sort data
     y = data[:, 21]  # column 21
@@ -103,3 +159,4 @@ def initalize():
     X_std = sc.transform(X)
 
     return(X_std, y)
+
