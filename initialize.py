@@ -89,9 +89,9 @@ def initalize():
     df['RainTomorrow'] = df['RainTomorrow'].fillna(-1)
 
     # fill all empty boxes with 0
-    df = df.fillna(0)
-    df = df.astype(float)
-    data = df.to_numpy()
+    # df = df.fillna(0)
+    #df = df.astype(float)
+    #data = df.to_numpy()
     
     
     
@@ -148,6 +148,10 @@ def initalize():
         #Should we drop variables with little correlation to RainTomorrow?
         #Should we drop variables with a large % of missing data?
         #For variables with a small % of missing data, should we fill with NA/0 or their average?
+
+
+    df = df.astype(float)
+    data = df.to_numpy()
 
     # sort data
     y = data[:, 21]  # column 21
