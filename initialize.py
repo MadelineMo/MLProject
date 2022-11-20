@@ -150,7 +150,7 @@ def initalize():
         #For variables with a small % of missing data, should we fill with NA/0 or their average?
 
 
-    df = df.astype(float)
+    # df = df.astype(float)
     data = df.to_numpy()
 
     # sort data
