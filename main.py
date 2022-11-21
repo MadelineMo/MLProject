@@ -64,6 +64,8 @@ params = [{'C': C, 'max_iter': iterations}]
 gs_log = GridSearchCV(estimator=logreg, param_grid=params, scoring='accuracy', cv=5)
 gs_log.fit(X_train, y_train)
 print("Best Parameters from GridSearchCV: ", gs_log.best_params_)
+val_score = gs_log.score(X_val, y_val)
+print("The accuracy of the 'best model' on the validation set is: ", val_score)
 score = gs_log.score(X_test, y_test)
 print("The final result:")
 print("The accuracy of the 'best' Logisic Regression model based on the Grid Search utilizing the n-fold cross validation on the Test set is: ", score)
