@@ -1,5 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from initialize import initalize
 from sklearn.linear_model import Perceptron
@@ -7,7 +5,7 @@ from adaline import Adaline
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-from Grid import gridSearch
+from sklearn.model_selection import GridSearchCV
 
 # Initialized data
 # returns standardized data
@@ -61,12 +59,12 @@ print("Refine Logistic Regression ---------------------")
 C = [0.1, 0.01, 0.001, 1, 10, 100, 1000]
 iterations = [100, 200, 300, 400, 500]
 
-max_accuracy, grid_best_model, scores_list, best_set = gridSearch(X_train, y_train, C, iterations)
-print("---------Best model from grid search: Accuracy=", best_set[0], " C=", best_set[1], " Iterations=", best_set[2])
-
-# best = grid_best_model(C=10, iterations=100)
-# best = best.fit(X=X_training, y=y_training)
-score = grid_best_model.score(X_test, y_test)
+logreg = LogisticRegression()
+params = [{'C': C, 'max_iter': iterations}]
+gs_log = GridSearchCV(estimator=logreg, param_grid=params, scoring='accuracy', cv=5)
+gs_log.fit(X_train, y_train)
+print("Best Parameters from GridSearchCV: ", gs_log.best_params_)
+score = gs_log.score(X_test, y_test)
 print("The final result:")
 print("The accuracy of the 'best' Logisic Regression model based on the Grid Search utilizing the n-fold cross validation on the Test set is: ", score)
 
