@@ -53,11 +53,6 @@ svc = svc.fit(X=X_train, y=y_train)
 s_score = svc.score(X_val, y_val)
 print("The accuracy of the default SVC is: ", s_score)
 
-rf = RandomForestClassifier(n_estimators=100)
-rf = rf.fit(X=X_train, y=y_train)
-rf_score = rf.score(X_val, y_val)
-print("The accuracy of the default Random Forest is: ", rf_score)
-
 print("The best performing model for this data is Logistic Regression")
 print("Refine Logistic Regression ---------------------")
 
