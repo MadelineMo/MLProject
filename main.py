@@ -5,6 +5,7 @@ from adaline import Adaline
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 
 # Initialized data
@@ -47,10 +48,15 @@ k = k.fit(X=X_train, y=y_train)
 k_score = k.score(X=X_val, y=y_val)
 print("The accuracy of the default K Nearest Neighbor is: ", k_score)
 
-# svc = SVC(max_iter=10)
-# svc = svc.fit(X=X_train, y=y_train)
-# s_score = svc.score(X_val, y_val)
-# print("The accuracy of the default SVC is: ", s_score)
+svc = SVC(max_iter=10)
+svc = svc.fit(X=X_train, y=y_train)
+s_score = svc.score(X_val, y_val)
+print("The accuracy of the default SVC is: ", s_score)
+
+rf = RandomForestClassifier(n_estimators=100)
+rf = rf.fit(X=X_train, y=y_train)
+rf_score = rf.score(X_val, y_val)
+print("The accuracy of the default Random Forest is: ", rf_score)
 
 print("The best performing model for this data is Logistic Regression")
 print("Refine Logistic Regression ---------------------")
